@@ -1,0 +1,343 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Updated color theme to match Nambikkai design */
+  --primary-red: #e60000;
+  --primary-blue: #003d7a;
+  --accent-blue: #1d4e89;
+  --light-bg: #f5f7fa;
+  --white: #ffffff;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  
+  .font-tamil {
+    font-family: 'Mukti', 'Catamaran', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* Added bubble animation keyframes for footer background */
+@keyframes float-bubble {
+  0% {
+    transform: translateY(100%) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100px);
+    opacity: 0;
+  }
+}
+
+@keyframes float-bubble-2 {
+  0% {
+    transform: translateY(100%) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(-80px);
+    opacity: 0;
+  }
+}
+
+@keyframes float-bubble-3 {
+  0% {
+    transform: translateY(100%) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(150px);
+    opacity: 0;
+  }
+}
+
+.bubble {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bubble-1 {
+  width: 80px;
+  height: 80px;
+  left: 10%;
+  animation: float-bubble 8s infinite;
+}
+
+.bubble-2 {
+  width: 60px;
+  height: 60px;
+  left: 20%;
+  animation: float-bubble-2 10s infinite 2s;
+}
+
+.bubble-3 {
+  width: 100px;
+  height: 100px;
+  left: 30%;
+  animation: float-bubble-3 12s infinite 4s;
+}
+
+.bubble-4 {
+  width: 50px;
+  height: 50px;
+  left: 50%;
+  animation: float-bubble 9s infinite 1s;
+}
+
+.bubble-5 {
+  width: 70px;
+  height: 70px;
+  left: 70%;
+  animation: float-bubble-2 11s infinite 3s;
+}
+
+.bubble-6 {
+  width: 90px;
+  height: 90px;
+  left: 85%;
+  animation: float-bubble-3 13s infinite 5s;
+}
+
+/* Added breaking news ticker animation scrolling from right to left */
+@keyframes scroll-right-to-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.breaking-news-scroll {
+  animation: scroll-right-to-left 20s linear infinite;
+}
+
+.breaking-news-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Calendar grid styling */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #1d4e89;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.calendar-day:hover {
+  background-color: #e60000;
+  color: white;
+}
+
+.calendar-day.highlight {
+  background-color: #e60000;
+  color: white;
+  font-weight: bold;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.calendar-header-day {
+  text-align: center;
+  font-weight: bold;
+  padding: 4px 1px;
+  font-size: 0.5rem;
+  line-height: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Added hero section background image with low opacity overlay */
+.hero-background {
+  position: relative;
+  background-image: url("/placeholder.svg?height=400&width=1200");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.hero-background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 61, 122, 0.85);
+  pointer-events: none;
+}
+
+.hero-background > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Google Translate Styles */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+.goog-te-menu-value {
+  padding: 3px !important;
+}
+
+.goog-te-gadget-simple {
+  background-color: transparent !important;
+  border: none !important;
+  font-size: 10pt !important;
+  display: inline-block;
+  padding: 0 !important;
+  cursor: pointer;
+}
+
+.goog-te-combo {
+  margin: 0 !important;
+  padding: 2px !important;
+  font-size: 10px !important;
+  border: 1px solid #ccc !important;
+  background: white !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+#google_translate_element {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.translated-ltr {
+  direction: ltr !important;
+}
+
+.goog-te-spinner-pos {
+  display: none !important;
+}
