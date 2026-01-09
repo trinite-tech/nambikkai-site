@@ -18,14 +18,14 @@ if (typeof window === 'undefined') {
 
 // Helper function to make API requests with fallback
 async function fetchAPI(endpoint: string, options: RequestInit = {}) {
-  const defaultOptions: RequestInit = {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(STRAPI_TOKEN && { Authorization: `Bearer ${STRAPI_TOKEN}` }),
-    },
-    timeout: 10000, // 10 second timeout
-    ...options,
-  }
+ const defaultOptions: RequestInit = {
+  headers: {
+    'Content-Type': 'application/json',
+    ...(STRAPI_TOKEN && { Authorization: `Bearer ${STRAPI_TOKEN}` }),
+  },
+  ...options,
+}
+
 
   // Try primary URL first
   if (STRAPI_URL) {

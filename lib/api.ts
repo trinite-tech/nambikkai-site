@@ -1,3 +1,5 @@
+import type { Article } from '@/lib/types'
+
 // API Configuration for EC2 Strapi Connection
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://13.200.250.14:1338'
 const FALLBACK_STRAPI_URL = 'https://strapi-nambikkai.herokuapp.com' // Backup URL
@@ -71,10 +73,19 @@ export async function getNews() {
     }
     
     return { ...data, connected: true }
-  } catch (error) {
-    console.log('❌ Strapi connection failed:', error.message)
-    return { data: [], connected: false, error: error.message }
+ } catch (error) {
+  const message =
+    error instanceof Error ? error.message : 'Unknown error'
+
+  console.log('❌ Strapi connection failed:', message)
+
+  return {
+    data: [],
+    connected: false,
+    error: message,
   }
+}
+
 }
 
 // Fetch single article by documentId or slug
@@ -258,7 +269,7 @@ export async function getAllImages() {
 }
 
 // Convert Strapi article to app format
-export function formatArticle(article: any) {
+export function formatArticle(article: any): Article {
   const strapiUrl = STRAPI_URL
   
   // Safe content processing

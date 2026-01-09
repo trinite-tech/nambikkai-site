@@ -1,3 +1,4 @@
+import type { Article } from '@/lib/types'
 import { getArticle, formatArticle, getNews } from '@/lib/api'
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react'
 import Image from 'next/image'
@@ -26,7 +27,8 @@ export async function generateStaticParams() {
 }
 
 export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  let article = null
+  let article: Article | null = null
+
   
   try {
     const response = await getArticle(params.slug)

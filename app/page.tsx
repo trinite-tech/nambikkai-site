@@ -1,4 +1,8 @@
 "use client";
+interface HomepageData {
+  title: string
+  description: string
+}
 
 import { DynamicHomepage } from "@/components/dynamic-homepage-new";
 import { useEffect, useState } from "react";
@@ -9,7 +13,7 @@ const mockData = {
 };
 
 export default function Home() {
-  const [homepageData, setHomepageData] = useState(null);
+  const [homepageData, setHomepageData] = useState<HomepageData | null>(null)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
