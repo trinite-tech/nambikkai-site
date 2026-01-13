@@ -1,7 +1,7 @@
 import type { Article } from '@/lib/types'
 
 // API Configuration for EC2 Strapi Connection
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://13.200.250.14:1338'
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://3.108.194.91:1338/admin'
 const FALLBACK_STRAPI_URL = 'https://strapi-nambikkai.herokuapp.com' // Backup URL
 
 // API token from Strapi Admin - Load from environment variables

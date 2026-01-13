@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { getNews, formatArticle } from "@/lib/api"
 import { sampleArticles } from "@/lib/sample-data"
 import { NewsArticleCard } from "@/components/news-article-card"
-import { StyleTest } from "@/components/style-test"
+import { ConnectionStatus } from "@/components/connection-status"
 
 interface Article {
   id?: string;
@@ -29,41 +29,29 @@ export function DynamicHomepage({ data }: DynamicHomepageProps) {
   const [articles, setArticles] = useState<Article[]>(sampleArticles)
   const [loading, setLoading] = useState(true)
   const [usingStrapi, setUsingStrapi] = useState(false)
-  const [connectionStatus, setConnectionStatus] = useState('Checking...')
+  const [showConnectionStatus, setShowConnectionStatus] = useState(false)
 
   useEffect(() => {
     async function loadArticles() {
       try {
-        setConnectionStatus('Connecting to Strapi...')
-        console.log('🔄 Attempting to connect to Strapi CMS...')
-        
         const result = await getNews()
         
         if (result.connected) {
-          if (result.isEmpty) {
-            console.log('⚠️ Strapi connected but database is empty')
-            setConnectionStatus('Connected to Strapi but no articles found - using sample data')
-            setUsingStrapi(false)
-          } else if (result.data?.length > 0) {
-            console.log('✅ Strapi connection successful!')
+          if (result.data?.length > 0) {
             const formattedArticles = result.data.map(formatArticle)
             setArticles(formattedArticles)
             setUsingStrapi(true)
-            setConnectionStatus(`Connected - ${result.data.length} articles loaded from Strapi`)
           } else {
-            console.log('⚠️ Strapi connected but returned no data')
-            setConnectionStatus('Connected to Strapi but no data returned - using sample data')
             setUsingStrapi(false)
           }
         } else {
-          console.log('❌ Strapi connection failed:', result.error)
-          setConnectionStatus(`Connection failed: ${result.error || 'Unknown error'} - using sample data`)
           setUsingStrapi(false)
         }
+        
+        setShowConnectionStatus(true)
       } catch (error) {
-        console.log('❌ Unexpected error:', error)
-        setConnectionStatus('Unexpected error - using sample articles')
         setUsingStrapi(false)
+        setShowConnectionStatus(true)
       } finally {
         setLoading(false)
       }
@@ -74,15 +62,10 @@ export function DynamicHomepage({ data }: DynamicHomepageProps) {
 
   if (loading) {
     return (
-      <div className="space-y-8">
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p className="text-sm text-blue-700">🔄 {connectionStatus}</p>
-        </div>
-        <div className="animate-pulse space-y-4">
-          {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-gray-200 h-32 rounded-lg"></div>
-          ))}
-        </div>
+      <div className="animate-pulse space-y-4">
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="bg-gray-200 h-32 rounded-lg"></div>
+        ))}
       </div>
     )
   }
@@ -92,34 +75,15 @@ export function DynamicHomepage({ data }: DynamicHomepageProps) {
       <h1>{data?.attributes?.title}</h1>
       <p>{data?.attributes?.description}</p>
       
+      {/* Connection Status Popup */}
+      {showConnectionStatus && (
+        <ConnectionStatus 
+          isConnected={usingStrapi} 
+          onClose={() => setShowConnectionStatus(false)}
+        />
+      )}
+      
       <div className="space-y-8">
-        {/* Style Test - Remove this after confirming styles work */}
-        <StyleTest />
-        
-        {/* Connection Status */}
-        <div className={`border rounded-lg p-4 ${
-          usingStrapi 
-            ? 'bg-green-50 border-green-200' 
-            : 'bg-blue-50 border-blue-200'
-        }`}>
-          <p className={`text-sm ${
-            usingStrapi 
-              ? 'text-green-700' 
-              : 'text-blue-700'
-          }`}>
-            {usingStrapi ? (
-              <>✅ {connectionStatus}</>
-            ) : (
-              <>📊 {connectionStatus}</>
-            )}
-          </p>
-          {!usingStrapi && (
-            <p className="text-xs text-blue-600 mt-1">
-              Strapi server is running but database is empty. Add articles in Strapi admin or visit <a href="/test-strapi" className="underline">/test-strapi</a> for diagnostics
-            </p>
-          )}
-        </div>
-
         {/* Featured Article */}
         {articles.length > 0 && (
           <div className="mb-8">

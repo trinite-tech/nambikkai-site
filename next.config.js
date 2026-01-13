@@ -6,7 +6,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: '13.200.250.14',
+        hostname: '3.108.194.91',
         port: '1338',
         pathname: '/uploads/**',
       },
@@ -18,7 +18,7 @@ const nextConfig = {
     ],
   },
   env: {
-    NEXT_PUBLIC_STRAPI_URL: process.env.NEXT_PUBLIC_STRAPI_URL || 'http://13.200.250.14:1338',
+    NEXT_PUBLIC_STRAPI_URL: process.env.NEXT_PUBLIC_STRAPI_URL || 'http://3.108.194.91:1338/',
     STRAPI_API_TOKEN: process.env.STRAPI_API_TOKEN
   },
   typescript: {
