@@ -17,6 +17,7 @@ export default function Error({ error, reset }) {
           </button>
           <Link href="/" className="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700 inline-block">
             முகப்புக்கு செல்லவும்
+            #nambikkai_testin
           </Link>
         </div>
       </div>
